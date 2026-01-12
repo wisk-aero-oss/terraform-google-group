@@ -69,6 +69,7 @@ resource "google_cloud_identity_group_membership" "managers" {
   # MEMBER role must be specified. The order of roles should not be changed.
   roles { name = "MEMBER" }
   roles { name = "MANAGER" }
+  depends_on = [google_cloud_identity_group_membership.owners]
 }
 
 resource "google_cloud_identity_group_membership" "members" {
@@ -78,4 +79,5 @@ resource "google_cloud_identity_group_membership" "members" {
 
   preferred_member_key { id = each.key }
   roles { name = "MEMBER" }
+  depends_on = [google_cloud_identity_group_membership.managers]
 }
